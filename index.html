@@ -10,36 +10,51 @@
         * {
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
 
         #canvas {
             background: #ddd;
-            /*position: relative;*/
-            /*height: 100vh;*/
+        }
+
+        #eraser {
+            position: fixed;
+            left: 8%;
+            top: 5%;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
-<canvas id="canvas" width="1000" height="500"></canvas>
+<canvas id="canvas"></canvas>
+<button id="eraser">橡皮擦</button>
 </body>
 <script>
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
-    var painting = false;
+    var using = false;
 
     var lastPoint = {
         x: undefined,
         y: undefined
     }
 
+    resizePageHeightWidth()
+    window.onresize = function () {
+        resizePageHeightWidth()
+    }
 
     canvas.onmousedown = function (e) {
-        painting = true;
         var clientX = e.clientX;
         var clientY = e.clientY;
-        drawCircle(clientX, clientY, 1)
         lastPoint = {x: clientX, y: clientY}
-        console.log(lastPoint)
+        if (eraserEnabled) {
+            using = true;
+            context.clearRect(clientX-5, clientY-5, 10, 10)
+        } else {
+            using = true;
+            console.log(lastPoint)
+        }
 
 
         //原生实现
@@ -56,28 +71,53 @@
 
     }
     canvas.onmousemove = function (e) {
-        if (painting) {
-            var clientX = e.clientX;
-            var clientY = e.clientY;
-            drawCircle(clientX, clientY, 1)
-            var newPoint = {x: clientX, y: clientY}
-            drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
-            lastPoint = newPoint;
+        var clientX = e.clientX;
+        var clientY = e.clientY;
+        var newPoint = {x: clientX, y: clientY}
+        if (eraserEnabled) {
+            if(using){
+                context.clearRect(clientX-5, clientY-5, 10, 10)
+            }
         } else {
+            // drawCircle(clientX, clientY, 1)
+            if (using) {
+                drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+                lastPoint = newPoint;
+            }
 
         }
 
     }
     canvas.onmouseup = function (e) {
-        painting = false;
+        using = false;
     }
 
 
-    function drawCircle(x, y, radius) {
-        context.beginPath();
-        context.fillStyle = '#666';
-        context.arc(x, y, radius, 0, 2 * Math.PI);
-        context.fill();
+    // function drawCircle(x, y, radius) {
+    //     context.beginPath();
+    //     context.fillStyle = '#666';
+    //     context.arc(x, y, radius, 0, 2 * Math.PI);
+    //     context.fill();
+    // }
+
+
+    /*
+    * 橡皮擦监控制
+    * 初始值：false(不使用)
+    *
+ * */
+
+    var eraserEnabled = false
+    eraser.onclick = function () {
+        eraserEnabled = !eraserEnabled;
+    }
+
+    function resizePageHeightWidth() {
+        var pageWidth = document.documentElement.clientWidth;
+        var pageHeight = document.documentElement.clientHeight;
+        canvas.width = pageWidth;
+        canvas.height = pageHeight;
+
     }
 
     function drawLine(x1, y1, x2, y2) {
