@@ -12,6 +12,18 @@
             overflow: hidden;
         }
 
+        ol, ul {
+            list-style: none;
+        }
+
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+
         #canvas {
             background: #ddd;
         }
@@ -23,17 +35,57 @@
             padding: 10px;
         }
 
-        .action > #brush {
-            display: none;
+        .action svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin: 0 10px;
+            transition: all .3s;
         }
 
-        .action.era > #brush {
-            display: inline-block;
+        .action svg.active {
+            fill: red;
+            transform: scale(1.2);
         }
 
-        .action.era > #eraser {
-            display: none;
+        .color-panel {
+            position: fixed;
+            left: 45px;
+            top: 80px;
+            /*border: 1px solid red;*/
         }
+
+        .color-panel li {
+            width: 20px;
+            height: 20px;
+            margin: 10px 5px;
+            border-radius: 50px;
+            /*box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);*/
+            transition: all .3s;
+            /*border: 1px solid red;*/
+        }
+
+        .color-panel li.active {
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+            transform: scale(1.2);
+
+        }
+
+        .color-panel li.black {
+            background: black
+        }
+
+        .color-panel li.red {
+            background: red
+        }
+
+        .color-panel li.green {
+            background: green
+        }
+
+        .color-panel li.yellow {
+            background: yellow
+        }
+
 
     </style>
     <title>Document</title>
@@ -41,11 +93,20 @@
 <body>
 <canvas id="canvas"></canvas>
 <div id="actions" class="action">
-    <!--画笔和橡皮擦按钮注释对调，利于交互-->
-    <button id="eraser">画笔</button>
-    <button id="brush">橡皮擦</button>
+    <svg id="brush" class="icon active" aria-hidden="true">
+        <use xlink:href="#icon-pen"></use>
+    </svg>
+    <svg id="eraser" class="icon" aria-hidden="true">
+        <use xlink:href="#icon-eraser"></use>
+    </svg>
 </div>
-
+<ol class="color-panel">
+    <li id="black" class="black active"></li>
+    <li id="red" class="red"></li>
+    <li id="green" class="green"></li>
+    <li id="yellow" class="yellow"></li>
+</ol>
 </body>
 <script src="./js/index.js"></script>
+<script src="//at.alicdn.com/t/font_739594_v5mhzrllb3.js"></script>
 </html>

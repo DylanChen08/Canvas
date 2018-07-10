@@ -18,21 +18,57 @@ function autoSetCanvasSize(canvas) {
 
 }
 
+
+// 颜色控制
+
+black.onclick = function () {
+    black.classList.add('active');
+    red.classList.remove('active');
+    green.classList.remove('active');
+    yellow.classList.remove('active');
+    context.strokeStyle='black'
+}
+red.onclick = function () {
+    red.classList.add('active');
+    black.classList.remove('active');
+    green.classList.remove('active');
+    yellow.classList.remove('active');
+    context.strokeStyle='red'
+}
+green.onclick = function () {
+    green.classList.add('active');
+    red.classList.remove('active');
+    black.classList.remove('active');
+    yellow.classList.remove('active');
+    context.strokeStyle='green'
+}
+yellow.onclick = function () {
+    yellow.classList.add('active');
+    red.classList.remove('active');
+    green.classList.remove('active');
+    black.classList.remove('active');
+    context.strokeStyle='yellow'
+}
+
+
 /*
 * 橡皮擦监控制
 * 初始值：false(不使用)
 *
 * */
 
-var eraserEnabled = false
-eraser.onclick = function () {
-    eraserEnabled = true;
-    actions.className = "action era"
-}
+var eraserEnabled = false;
 brush.onclick = function () {
     eraserEnabled = false;
-    actions.className = "action"
+    brush.classList.add('active');
+    eraser.classList.remove('active');
 }
+eraser.onclick = function () {
+    eraserEnabled = true;
+    eraser.classList.add('active');
+    brush.classList.remove('active');
+}
+
 
 function resizePageHeightWidth() {
     var pageWidth = document.documentElement.clientWidth;
@@ -44,7 +80,7 @@ function resizePageHeightWidth() {
 
 function drawLine(x1, y1, x2, y2) {
     context.beginPath();
-    context.strokeStyle = '#666';
+    // context.strokeStyle = '#666';
     context.moveTo(x1, y1);
     context.lineWidth = 5;
     context.lineTo(x2, y2);
