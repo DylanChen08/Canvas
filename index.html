@@ -12,6 +12,10 @@
             overflow: hidden;
         }
 
+        body {
+            background: white;
+        }
+
         ol, ul {
             list-style: none;
         }
@@ -25,7 +29,7 @@
         }
 
         #canvas {
-            background: #ddd;
+            background: white;
         }
 
         .action {
@@ -86,6 +90,25 @@
             background: yellow
         }
 
+        .sizes {
+            position: fixed;
+            right: 45px;
+            top: 41px;
+        }
+
+        .sizes li {
+            width: 50px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .sizes .thin {
+            border-top: 2px solid black;
+        }
+
+        .sizes .thick {
+            border-top: 8px solid black;
+        }
 
     </style>
     <title>Document</title>
@@ -99,6 +122,13 @@
     <svg id="eraser" class="icon" aria-hidden="true">
         <use xlink:href="#icon-eraser"></use>
     </svg>
+    <svg id="clear" class="icon" aria-hidden="true">
+        <use xlink:href="#icon-clear"></use>
+    </svg>
+    <svg id="download" class="icon" aria-hidden="true">
+        <use xlink:href="#icon-download"></use>
+    </svg>
+
 </div>
 <ol class="color-panel">
     <li id="black" class="black active"></li>
@@ -106,7 +136,11 @@
     <li id="green" class="green"></li>
     <li id="yellow" class="yellow"></li>
 </ol>
+<ol class="sizes">
+    <li id="thin" class="thin"></li>
+    <li id="thick" class="thick"></li>
+</ol>
 </body>
 <script src="./js/index.js"></script>
-<script src="//at.alicdn.com/t/font_739594_v5mhzrllb3.js"></script>
+<script src="//at.alicdn.com/t/font_739594_sqkh59me9ei.js"></script>
 </html>

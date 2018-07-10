@@ -1,6 +1,9 @@
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var using = false;
+var lineWidth = 5;
+// var randomNumber=getRandomInt(99999999);
+// console.log(randomNumber);
 
 var lastPoint = {
     x: undefined,
@@ -26,28 +29,28 @@ black.onclick = function () {
     red.classList.remove('active');
     green.classList.remove('active');
     yellow.classList.remove('active');
-    context.strokeStyle='black'
+    context.strokeStyle = 'black'
 }
 red.onclick = function () {
     red.classList.add('active');
     black.classList.remove('active');
     green.classList.remove('active');
     yellow.classList.remove('active');
-    context.strokeStyle='red'
+    context.strokeStyle = 'red'
 }
 green.onclick = function () {
     green.classList.add('active');
     red.classList.remove('active');
     black.classList.remove('active');
     yellow.classList.remove('active');
-    context.strokeStyle='green'
+    context.strokeStyle = 'green'
 }
 yellow.onclick = function () {
     yellow.classList.add('active');
     red.classList.remove('active');
     green.classList.remove('active');
     black.classList.remove('active');
-    context.strokeStyle='yellow'
+    context.strokeStyle = 'yellow'
 }
 
 
@@ -68,7 +71,34 @@ eraser.onclick = function () {
     eraser.classList.add('active');
     brush.classList.remove('active');
 }
+clear.onclick = function () {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
+thin.onclick = function () {
+    lineWidth = 5
+}
+thick.onclick = function () {
+    lineWidth = 10
+}
+download.onclick = function () {
+    // console.log(randomNumber);
+    var url = canvas.toDataURL("image/png");
+    var anchor = document.createElement('a');
+    document.body.appendChild(anchor);
+    anchor.href = url;
+    anchor.download = getRandomName(99999);
+    anchor.target = 'blank';
+    anchor.click();
+}
 
+//随机数命名
+function getRandomName(max) {
+    return "project" + "-" + Math.floor(Math.random() * Math.floor(max));
+
+}
+
+
+console.log(Math.random());
 
 function resizePageHeightWidth() {
     var pageWidth = document.documentElement.clientWidth;
@@ -82,7 +112,7 @@ function drawLine(x1, y1, x2, y2) {
     context.beginPath();
     // context.strokeStyle = '#666';
     context.moveTo(x1, y1);
-    context.lineWidth = 5;
+    context.lineWidth = lineWidth;
     context.lineTo(x2, y2);
     context.stroke();
 }
