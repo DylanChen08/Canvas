@@ -101,6 +101,7 @@ function getRandomName(max) {
 console.log(Math.random());
 
 function resizePageHeightWidth() {
+    //获取屏幕宽度，作为canvas画板的宽度和高度
     var pageWidth = document.documentElement.clientWidth;
     var pageHeight = document.documentElement.clientHeight;
     canvas.width = pageWidth;
